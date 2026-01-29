@@ -261,16 +261,17 @@
       color:var(--muted);
     }
     .canvasBox{
-      width:260px;height:260px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(255,255,255,.06);
-      overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin:0 auto;
-    }
+  width:260px;height:260px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.06);
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto;
+  position: relative;
+}
     .canvasBox > div, .canvasBox > svg, .canvasBox > canvas{
       width:260px !important;
       height:260px !important;
@@ -300,7 +301,67 @@
   stroke-linecap: round !important;
   stroke-linejoin: round !important;
 }
+/* Fondo tipo cuaderno chino (田字格 / tianzige) */
+.tianzige{
+  position: relative;
+  background: rgba(255,255,255,0.04);
+  border-radius: 16px;
+  overflow: hidden;
+}
 
+/* líneas principales */
+.tianzige::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    /* cruz central */
+    linear-gradient(to right,
+      transparent 49.2%,
+      rgba(0,255,170,0.35) 49.2%,
+      rgba(0,255,170,0.35) 50.8%,
+      transparent 50.8%
+    ),
+    linear-gradient(to bottom,
+      transparent 49.2%,
+      rgba(0,255,170,0.35) 49.2%,
+      rgba(0,255,170,0.35) 50.8%,
+      transparent 50.8%
+    );
+  pointer-events:none;
+}
+
+/* diagonales punteadas */
+.tianzige::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(45deg,
+      transparent 49.7%,
+      rgba(0,255,170,0.22) 49.7%,
+      rgba(0,255,170,0.22) 50.3%,
+      transparent 50.3%
+    ),
+    linear-gradient(-45deg,
+      transparent 49.7%,
+      rgba(0,255,170,0.22) 49.7%,
+      rgba(0,255,170,0.22) 50.3%,
+      transparent 50.3%
+    );
+  opacity: .75;
+  filter: blur(0.2px);
+  pointer-events:none;
+
+  /* efecto punteado */
+  mask-image: repeating-linear-gradient(
+    to right,
+    rgba(0,0,0,1) 0px,
+    rgba(0,0,0,1) 6px,
+    rgba(0,0,0,0) 6px,
+    rgba(0,0,0,0) 12px
+  );
+}
   </style>
 </head>
 <body>
@@ -577,7 +638,7 @@
             <div class="c">${ch}</div>
             <div class="small">Carácter ${i+1} de ${chars.length}</div>
           </div>
-          <div class="canvasBox"><div id="${boxId}"></div></div>
+          <div class="canvasBox tianzige"><div id="${boxId}"></div></div>
           <div class="small" id="hint_${i}" style="text-align:center; color: rgba(255,255,255,.75);">Listo.</div>
         `;
         elGrid.appendChild(card);
@@ -690,6 +751,7 @@
   </script>
 </body>
 </html>
+
 
 
 
