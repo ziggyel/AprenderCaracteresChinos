@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aprender caracteres chinos</title>
+  <style>
+    :root{
+      --fg:#fff;
+      --muted:rgba(255,255,255,.75);
+      --panel:rgba(0,0,0,.38);
+      --panel2:rgba(0,0,0,.28);
+      --border:rgba(255,255,255,.18);
+      --shadow:0 12px 40px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color:var(--fg);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.65)),
+        radial-gradient(circle at 15% 20%, rgba(220,0,0,.35), rgba(0,0,0,0) 45%),
+        radial-gradient(circle at 85% 30%, rgba(255,210,0,.22), rgba(0,0,0,0) 40%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='600'%3E%3Crect width='100%25' height='100%25' fill='%23000'/%3E%3Cg fill='%23ffffff' fill-opacity='.06' font-family='sans-serif' font-size='42'%3E%3Ctext x='30' y='80'%3E汉字%20学习%20HSK%201%3C/text%3E%3Ctext x='120' y='170'%3E你好%20谢谢%20中国%3C/text%3E%3Ctext x='40' y='260'%3E我%20你%20好%20人%20是%20不%3C/text%3E%3Ctext x='160' y='350'%3E学习%20练习%20笔画%3C/text%3E%3Ctext x='60' y='440'%3E汉语%20拼音%20意思%3C/text%3E%3C/g%3E%3C/svg%3E");
+      background-size: cover;
+      background-position:center;
+    }
+
+    .wrap{
+      width:min(1100px, 100%);
+      display:grid;
+      grid-template-columns: 380px 1fr;
+      gap:18px;
+    }
+
+    .card{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      overflow:hidden;
+    }
+
+    .header{
+      padding:16px 16px 12px 16px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      border-bottom:1px solid var(--border);
+      background:rgba(0,0,0,.25);
+    }
+    .flag{
+      width:46px;height:32px;border-radius:8px;
+      border:1px solid rgba(255,255,255,.2);
+      overflow:hidden;
+      flex:0 0 auto;
+      box-shadow: 0 6px 18px rgba(0,0,0,.25);
+    }
+    .flag svg{display:block;width:100%;height:100%}
+    .title{
+      line-height:1.1;
+    }
+    .title h1{
+      margin:0;
+      font-size:18px;
+      font-weight:700;
+    }
+    .title p{
+      margin:4px 0 0 0;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .left{
+      padding:14px 16px 16px 16px;
+    }
+
+    .searchRow{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-bottom:10px;
+    }
+    input[type="search"]{
+      width:100%;
+      max-width: 260px;
+      min-width: 0;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.08);
+      color:var(--fg);
+      outline:none;
+    }
+    input[type="search"]::placeholder{color:rgba(255,255,255,.55)}
+    .pill{
+      font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.85);
+      white-space:nowrap;
+    }
+
+    .list{
+      max-height: 520px;
+      overflow:auto;
+      padding-right:6px;
+    }
+    .item{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 10px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+      cursor:pointer;
+      margin-bottom:10px;
+      transition:transform .08s ease, background .15s ease, border-color .15s ease;
+    }
+    .item:hover{
+      transform: translateY(-1px);
+      background:rgba(0,0,0,.26);
+      border-color:rgba(255,255,255,.18);
+    }
+    .item .hanzi{
+      font-size:22px;
+      font-weight:700;
+      letter-spacing:.5px;
+    }
+    .item .meta{
+      font-size:12px;
+      color:var(--muted);
+      margin-top:2px;
+    }
+    .item .meaning{
+      font-size:12px;
+      color:rgba(255,255,255,.9);
+      margin-top:4px;
+    }
+    .item .tag{
+      font-size:11px;
+      padding:6px 8px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.85);
+      flex:0 0 auto;
+      margin-top:2px;
+    }
+
+    .right{
+      padding:16px;
+      min-height: 640px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:var(--panel2);
+    }
+    .wordTitle{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      min-width:0;
+    }
+    .wordTitle .big{
+      font-size:20px;
+      font-weight:800;
+      letter-spacing:.3px;
+      margin:0;
+      line-height:1.1;
+    }
+    .wordTitle .sub{
+      font-size:12px;
+      color:var(--muted);
+      margin:0;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    button{
+      border-radius:12px;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.08);
+      color:var(--fg);
+      cursor:pointer;
+      font-weight:600;
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+    }
+    button:hover{transform: translateY(-1px); background:rgba(255,255,255,.12)}
+    button:active{transform: translateY(0px)}
+    button.secondary{background:rgba(0,0,0,.18)}
+    button.danger{background:rgba(220,0,0,.18)}
+    button:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+    .status{
+      font-size:12px;
+      color:rgba(255,255,255,.9);
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+    }
+
+    .charGrid{
+      display:grid;
+      grid-template-columns: repeat( auto-fit, minmax(260px, 1fr) );
+      gap:12px;
+    }
+    .charCard{
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      padding:12px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .charCard .charHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .charCard .charHead .c{
+      font-size:28px;
+      font-weight:800;
+    }
+    .charCard .charHead .small{
+      font-size:12px;
+      color:var(--muted);
+    }
+    .canvasBox{
+      width:260px;height:260px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto;
+    }
+    .canvasBox > div, .canvasBox > svg, .canvasBox > canvas{
+      width:260px !important;
+      height:260px !important;
+    }
+
+    .footerNote{
+      font-size:12px;
+      color:rgba(255,255,255,.75);
+      text-align:center;
+      margin-top:auto;
+      padding-top:4px;
+    }
+
+    @media (max-width: 900px){
+      .wrap{grid-template-columns:1fr}
+      .list{max-height:260px}
+      input[type="search"]{max-width:100%}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="header">
+        <div class="flag" aria-hidden="true">
+          <!-- Bandera China simple -->
+          <svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
+            <rect width="30" height="20" fill="#de2910"/>
+            <polygon points="6,3 7.2,6.4 10.8,6.4 7.9,8.5 9,12 6,9.8 3,12 4.1,8.5 1.2,6.4 4.8,6.4" fill="#ffde00"/>
+          </svg>
+        </div>
+        <div class="title">
+          <h1>Chino • Práctica de caracteres (HSK 1)</h1>
+          <p>Elegí una palabra, mirá el orden de trazos y practicá con el cursor.</p>
+        </div>
+      </div>
+
+      <div class="left">
+        <div class="searchRow">
+          <input id="search" type="search" placeholder="Buscar (hanzi, pinyin o significado)" autocomplete="off" />
+          <span class="pill" id="countPill">0</span>
+        </div>
+
+        <div class="list" id="list"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="right">
+        <div class="topbar">
+          <div class="wordTitle">
+            <p class="big" id="wordBig">Seleccioná una palabra</p>
+            <p class="sub" id="wordSub">HSK 1 • pinyin + significado</p>
+          </div>
+          <div class="actions">
+            <button id="btnAnimate" class="secondary" disabled>Ver trazos</button>
+            <button id="btnPractice" disabled>Practicar</button>
+            <button id="btnReset" class="secondary" disabled>Reiniciar</button>
+          </div>
+        </div>
+
+        <div id="status" class="status">Listo. Elegí una palabra del menú.</div>
+
+        <div class="charGrid" id="charGrid"></div>
+
+        <div class="footerNote">Tip: si una palabra tiene varios caracteres, se muestran varios cuadros para practicar cada uno.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cargar la librería local (NO CDN) -->
+  <script src="./libs/hanziwriter.min.js"></script>
+
+  <script>
+    // =========================
+    // Diccionario inicial (HSK 1 - mínimo para probar)
+    // Podés ampliar después. IMPORTANTE: cada carácter necesita su JSON en /data
+    // Formato: { hanzi, pinyin, meaning }
+    // =========================
+    const DICT = [
+      { hanzi: "我", pinyin: "wǒ", meaning: "yo / me" },
+      { hanzi: "你", pinyin: "nǐ", meaning: "vos / tú" },
+      { hanzi: "好", pinyin: "hǎo", meaning: "bueno / bien" },
+      { hanzi: "你好", pinyin: "nǐ hǎo", meaning: "hola" }
+    ];
+
+    // =========================
+    // Util: loader LOCAL de JSON (evita jsDelivr)
+    // =========================
+    function localCharDataLoader(char, onComplete, onError) {
+      fetch(`./data/${encodeURIComponent(char)}.json`)
+        .then(r => {
+          if (!r.ok) throw new Error(`No se encontró ./data/${char}.json (${r.status})`);
+          return r.json();
+        })
+        .then(onComplete)
+        .catch(err => {
+          if (onError) onError(err);
+        });
+    }
+
+    // =========================
+    // UI
+    // =========================
+    const elList = document.getElementById("list");
+    const elSearch = document.getElementById("search");
+    const elCount = document.getElementById("countPill");
+    const elWordBig = document.getElementById("wordBig");
+    const elWordSub = document.getElementById("wordSub");
+    const elStatus = document.getElementById("status");
+    const elGrid = document.getElementById("charGrid");
+
+    const btnAnimate = document.getElementById("btnAnimate");
+    const btnPractice = document.getElementById("btnPractice");
+    const btnReset = document.getElementById("btnReset");
+
+    let currentEntry = null;
+    let writers = [];       // writers por caracter
+    let inPractice = false;
+
+    function setStatus(msg) {
+      elStatus.textContent = msg;
+    }
+
+    function normalize(s) {
+      return (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function renderList(items) {
+      elList.innerHTML = "";
+      items.forEach((it, idx) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.tabIndex = 0;
+        div.innerHTML = `
+          <div>
+            <div class="hanzi">${it.hanzi}</div>
+            <div class="meta">${it.pinyin}</div>
+            <div class="meaning">${it.meaning}</div>
+          </div>
+          <div class="tag">HSK 1</div>
+        `;
+        div.addEventListener("click", () => selectEntry(it));
+        div.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") selectEntry(it);
+        });
+        elList.appendChild(div);
+      });
+      elCount.textContent = items.length;
+    }
+
+    function filterList() {
+      const q = normalize(elSearch.value);
+      if (!q) return renderList(DICT);
+      const out = DICT.filter(it => {
+        const hay = normalize(`${it.hanzi} ${it.pinyin} ${it.meaning}`);
+        return hay.includes(q);
+      });
+      renderList(out);
+    }
+
+    elSearch.addEventListener("input", filterList);
+
+    // =========================
+    // Selección + render de caracteres
+    // =========================
+    function clearWriters() {
+      writers = [];
+      elGrid.innerHTML = "";
+      inPractice = false;
+      btnAnimate.disabled = true;
+      btnPractice.disabled = true;
+      btnReset.disabled = true;
+    }
+
+    function selectEntry(entry) {
+      currentEntry = entry;
+      clearWriters();
+
+      elWordBig.textContent = entry.hanzi;
+      elWordSub.textContent = `${entry.pinyin} • ${entry.meaning}`;
+
+      const chars = Array.from(entry.hanzi);
+      setStatus("Cargando datos de trazos…");
+
+      // Crear tarjetas y writers
+      let loaded = 0;
+      let failed = false;
+
+      chars.forEach((ch, i) => {
+        const card = document.createElement("div");
+        card.className = "charCard";
+        const boxId = `box_${i}`;
+        card.innerHTML = `
+          <div class="charHead">
+            <div class="c">${ch}</div>
+            <div class="small">Carácter ${i+1} de ${chars.length}</div>
+          </div>
+          <div class="canvasBox"><div id="${boxId}"></div></div>
+          <div class="small" id="hint_${i}" style="text-align:center; color: rgba(255,255,255,.75);">Listo.</div>
+        `;
+        elGrid.appendChild(card);
+
+        // Crear writer con loader local
+        try {
+          const writer = HanziWriter.create(document.getElementById(boxId), ch, {
+            width: 260,
+            height: 260,
+            padding: 12,
+            showOutline: true,
+            showCharacter: true,
+            strokeColor: "#ffffff",
+            outlineColor: "rgba(255,255,255,0.25)",
+            drawingColor: "rgba(255,105,180,0.95)",
+            drawingWidth: 6,
+            charDataLoader: localCharDataLoader
+          });
+
+          writers.push({ ch, writer, hintEl: document.getElementById(`hint_${i}`) });
+
+          // Forzar carga rápida del JSON para detectar errores
+          writer.getCharacterData().then(() => {
+            loaded++;
+            if (!failed && loaded === chars.length) {
+              setStatus("Listo. Podés ver los trazos o practicar.");
+              btnAnimate.disabled = false;
+              btnPractice.disabled = false;
+              btnReset.disabled = false;
+            }
+          }).catch(err => {
+            failed = true;
+            setStatus(`❌ No se pudo cargar el carácter "${ch}". Asegurate de tener data/${ch}.json en GitHub.`);
+            writers.forEach(w => w.hintEl.textContent = "❌ Faltan datos (JSON).");
+            btnAnimate.disabled = true;
+            btnPractice.disabled = true;
+            btnReset.disabled = false;
+            console.error(err);
+          });
+
+        } catch (e) {
+          failed = true;
+          setStatus("❌ Error creando el canvas. Revisá que libs/hanziwriter.min.js exista y cargue.");
+          console.error(e);
+        }
+      });
+    }
+
+    // =========================
+    // Botones
+    // =========================
+    btnAnimate.addEventListener("click", async () => {
+      if (!writers.length) return;
+      inPractice = false;
+      setStatus("Mostrando trazos…");
+      // animar cada carácter en orden
+      for (const w of writers) {
+        await w.writer.animateCharacter({ onComplete: () => {} });
+      }
+      setStatus("Listo. Ahora podés practicar.");
+    });
+
+    btnPractice.addEventListener("click", () => {
+      if (!writers.length) return;
+      inPractice = true;
+      setStatus("Modo práctica: dibujá los trazos en orden (como en un paint).");
+      writers.forEach(w => {
+        w.hintEl.textContent = "Dibujá los trazos en orden.";
+        w.writer.quiz({
+          leniency: 1,
+          showHintAfterMisses: 2,
+          highlightOnComplete: true,
+          onCorrectStroke: (data) => {
+            w.hintEl.textContent = "✅ Bien (trazo correcto).";
+          },
+          onMistake: (data) => {
+            w.hintEl.textContent = "❌ Mal (probá de nuevo).";
+          },
+          onComplete: (data) => {
+            w.hintEl.textContent = "🎉 ¡Carácter completo!";
+          }
+        });
+      });
+    });
+
+    btnReset.addEventListener("click", () => {
+      if (!writers.length) return;
+      setStatus("Reiniciado.");
+      writers.forEach(w => {
+        w.writer.cancelQuiz();
+        w.writer.hideCharacter({ duration: 0 });
+        w.writer.showCharacter({ duration: 0 });
+        w.hintEl.textContent = "Listo.";
+      });
+      inPractice = false;
+    });
+
+    // =========================
+    // Init
+    // =========================
+    renderList(DICT);
+    elCount.textContent = DICT.length;
+
+    // Seleccionar la primera por defecto (opcional)
+    // selectEntry(DICT[0]);
+  </script>
+</body>
+</html>
