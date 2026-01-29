@@ -585,6 +585,7 @@
         // Crear writer con loader local
         try {
           const writer = HanziWriter.create(document.getElementById(boxId), ch, {
+            renderer: "canvas",
             width: 260,
             height: 260,
             padding: 12,
@@ -593,7 +594,9 @@
             strokeColor: "#ffffff",
             outlineColor: "rgba(255,255,255,0.25)",
             drawingColor: "rgba(110, 10, 35, 0.90)",  // rosa más “tinta”
-            drawingWidth: 14,                           // más grueso
+            drawingWidth: 18,    
+            
+
 
             charDataLoader: localCharDataLoader
           });
@@ -687,6 +690,7 @@
   </script>
 </body>
 </html>
+
 
 
 
