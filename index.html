@@ -3,64 +3,40 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>🇨🇳 HSK 1 • Practicar Hanzi</title>
+  <title>🇨🇳 Practicar Hanzi (HSK 1)</title>
 
   <style>
     :root{
-      --bg1:#0b0b10;
-      --bg2:#101022;
+      --bg1:#0b0b10; --bg2:#101022;
       --text:rgba(255,255,255,.95);
-      --muted:rgba(255,255,255,.75);
+      --muted:rgba(255,255,255,.72);
       --card:rgba(255,255,255,.06);
       --border:rgba(255,255,255,.12);
       --border2:rgba(255,255,255,.18);
       --panel:rgba(0,0,0,.25);
       --dash:rgba(255,255,255,.18);
       --accent:rgba(255,105,180,.9);
-      --chinaRedSoft:rgba(255,35,35,.18);
       --shadow:rgba(0,0,0,.45);
     }
 
     body{
-      margin:0;
-      min-height:100vh;
-      display:grid;
-      place-items:center;
+      margin:0; min-height:100vh; display:grid; place-items:center;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      color:var(--text);
-      padding:16px;
-      position:relative;
-      overflow-x:hidden;
+      color:var(--text); padding:16px; position:relative; overflow-x:hidden;
       background:
-        radial-gradient(circle at top, rgba(255,192,203,.18), transparent 55%),
+        radial-gradient(circle at top, rgba(255,192,203,.16), transparent 55%),
         linear-gradient(180deg,var(--bg1),var(--bg2));
     }
-
-    /* Letras chinas difuminadas atrás */
     body::before{
       content:"汉字 中文 学习 你好 谢谢 再见 我 你 他 她 是 不 有 在 家 水 茶 米饭 今天 明天 中国 汉语";
-      position:fixed;
-      inset:-60px;
-      font-size:66px;
-      line-height:1.8;
-      letter-spacing:8px;
-      opacity:0.06;
-      filter:blur(1.2px);
-      transform:rotate(-10deg);
-      pointer-events:none;
-      white-space:pre-wrap;
+      position:fixed; inset:-70px;
+      font-size:64px; line-height:1.8; letter-spacing:8px;
+      opacity:0.06; filter:blur(1.2px);
+      transform:rotate(-10deg); pointer-events:none; white-space:pre-wrap;
     }
 
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      background: radial-gradient(circle at 20% 20%, var(--chinaRedSoft), transparent 50%);
-      pointer-events:none;
-    }
-
-    .card{
-      width:min(980px, 96vw);
+    .app{
+      width:min(1100px, 96vw);
       background:var(--card);
       border:1px solid var(--border);
       border-radius:18px;
@@ -71,58 +47,35 @@
     }
 
     .top{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
+      display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start; justify-content:space-between;
     }
+    .title{ margin:0; font-size:18px; font-weight:900; }
+    .hint{ margin-top:4px; font-size:13px; opacity:var(--muted); max-width:780px; line-height:1.4; }
 
-    .title{
-      font-size:18px;
-      font-weight:900;
-      margin:0;
-    }
-
-    .hint{
-      opacity:var(--muted);
-      font-size:13px;
-      margin-top:4px;
-    }
-
-    .controls{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-
-    button, select{
+    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    input, button{
       background:rgba(255,255,255,.10);
       color:var(--text);
       border:1px solid var(--border2);
       border-radius:12px;
       padding:10px 12px;
       font-size:14px;
-      cursor:pointer;
       backdrop-filter: blur(6px);
     }
-
-    button.primary{
-      background:var(--accent);
-      border:none;
-      color:white;
-    }
+    input{ min-width:min(520px, 90vw); }
+    button{ cursor:pointer; }
+    button.primary{ background:var(--accent); border:none; color:white; }
+    button.ghost{ background:rgba(255,255,255,.07); }
+    button.small{ padding:8px 10px; font-size:13px; }
 
     .grid{
       margin-top:14px;
       display:grid;
-      grid-template-columns:1fr;
+      grid-template-columns: 1fr;
       gap:14px;
     }
-
-    @media(min-width:920px){
-      .grid{ grid-template-columns:420px 1fr; }
+    @media(min-width:980px){
+      .grid{ grid-template-columns: 420px 1fr; }
     }
 
     .panel{
@@ -131,108 +84,159 @@
       border-radius:14px;
       padding:14px;
     }
+    .panelTitle{ margin:0 0 8px; font-weight:800; font-size:14px; opacity:var(--muted); }
 
-    .boxTitle{
-      opacity:var(--muted);
-      margin:0 0 8px;
-      font-weight:700;
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      max-height:min(68vh, 680px);
+      overflow:auto;
+      padding-right:6px;
+    }
+    .item{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:14px;
+      padding:12px;
+      background:rgba(255,255,255,.04);
+      cursor:pointer;
+    }
+    .item:hover{ background:rgba(255,255,255,.07); }
+    .itemTop{ display:flex; justify-content:space-between; gap:10px; align-items:baseline; }
+    .hanziBig{ font-size:22px; font-weight:900; letter-spacing:1px; }
+    .pinyin{ opacity:.9; }
+    .meaning{ opacity:var(--muted); font-size:13px; margin-top:4px; }
+
+    .detailHead{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    .wordHanzi{ font-size:34px; font-weight:900; letter-spacing:1px; margin:0; }
+    .wordMeta{ margin-top:4px; opacity:var(--muted); font-size:14px; line-height:1.4; }
+    .warn{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,180,0,0.25);
+      background:rgba(255,180,0,0.10);
+      color:rgba(255,235,190,0.95);
+      font-size:13px;
+      line-height:1.35;
     }
 
-    #charBox{
-      width:320px;
-      height:320px;
+    .charsWrap{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    @media(min-width:820px){
+      .charsWrap{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media(min-width:1100px){
+      .charsWrap{ grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .charCard{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:14px;
+      background:rgba(255,255,255,.04);
+      padding:12px;
+    }
+    .charTop{
+      display:flex; justify-content:space-between; gap:10px; align-items:center;
+      margin-bottom:10px;
+    }
+    .charLabel{
+      font-weight:900;
+      letter-spacing:1px;
+      font-size:18px;
+    }
+    .status{
+      min-height:18px;
+      text-align:center;
+      margin-top:8px;
+      opacity:.92;
+      font-size:13px;
+    }
+    .canvas{
+      width:260px; height:260px;
+      margin:0 auto;
       background:rgba(255,255,255,.03);
       border:1px dashed var(--dash);
       border-radius:14px;
-      display:grid;
-      place-items:center;
-      margin:auto;
+      display:grid; place-items:center;
     }
-
-    #status{
+    .btns{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:10px; }
+    .footnote{ margin-top:10px; font-size:13px; opacity:var(--muted); line-height:1.4; }
+    .errorBox{
       margin-top:10px;
-      min-height:22px;
-      text-align:center;
-      opacity:.92;
-    }
-
-    .meta{
-      text-align:center;
-      margin-top:10px;
-    }
-    .meta .hanzi{
-      font-size:36px;
-      font-weight:900;
-    }
-    .meta .pinyin{
-      margin-top:4px;
-      opacity:.9;
-      font-size:16px;
-    }
-    .meta .meaning{
-      margin-top:2px;
-      opacity:var(--muted);
-      font-size:14px;
-    }
-
-    .pill{
-      display:inline-block;
-      margin-top:10px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--border2);
-      background:rgba(255,255,255,.07);
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,80,80,0.25);
+      background:rgba(255,80,80,0.10);
+      color:rgba(255,220,220,0.95);
       font-size:13px;
-      opacity:.95;
+      line-height:1.35;
     }
   </style>
 
-  <!-- Librerías para trazos + práctica -->
+  <!-- Librerías (orden importante) -->
   <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7/dist/hanziwriter.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/hanzi-writer-data.min.js"></script>
 </head>
 
 <body>
-  <div class="card">
+  <div class="app">
     <div class="top">
       <div>
-        <p class="title">🇨🇳 HSK 1 • Practicar caracteres chinos</p>
+        <p class="title">🇨🇳 Practicar caracteres chinos (HSK 1)</p>
         <div class="hint">
-          1) Ver trazos → 2) Practicar dibujando con el cursor → 3) Te dice si está bien o mal.
+          Buscá una palabra, elegila y practicá <b>cada carácter</b> con “Ver paso a paso” y “Practicar”.
+          (Validación por trazos: orden + forma con tolerancia).
         </div>
       </div>
 
-      <div class="controls">
-        <label class="hint">Palabra:</label>
-        <select id="wordSelect"></select>
-
-        <button class="primary" id="showBtn">Ver paso a paso</button>
-        <button id="quizBtn">Practicar</button>
-        <button id="resetBtn">Reset</button>
+      <div class="row">
+        <button id="backBtn" class="ghost" style="display:none;">← Volver</button>
       </div>
     </div>
 
     <div class="grid">
-      <div class="panel">
-        <p class="boxTitle">Canvas (acá dibujás)</p>
-        <div id="charBox"></div>
-
-        <div class="meta">
-          <div class="hanzi" id="hanziText">—</div>
-          <div class="pinyin" id="pinyinText">—</div>
-          <div class="meaning" id="meaningText">—</div>
-          <div class="pill" id="progressPill">Progreso: 0/0</div>
+      <!-- Panel izquierda: diccionario -->
+      <div class="panel" id="leftPanel">
+        <p class="panelTitle">Diccionario (HSK 1)</p>
+        <div class="row" style="margin-bottom:10px;">
+          <input id="search" placeholder="Buscar por hanzi / pinyin / significado…" />
         </div>
-
-        <div id="status"></div>
+        <div class="list" id="list"></div>
       </div>
 
-      <div class="panel">
-        <p class="boxTitle">Cómo usarlo</p>
-        <div class="hint">
-          <b>Ver paso a paso</b>: te muestra el orden de trazos.<br/><br/>
-          <b>Practicar</b>: dibujás con el mouse/trackpad y valida si hiciste el trazo correcto (orden y forma).<br/><br/>
-          Cuando completás bien, queda guardado como “hecho” ✅.
+      <!-- Panel derecha: detalle -->
+      <div class="panel" id="rightPanel">
+        <div id="detailEmpty">
+          <p class="panelTitle">Seleccioná una palabra</p>
+          <div class="footnote">Elegí una palabra en la lista de la izquierda para ver el detalle y practicar.</div>
+          <div id="libCheck" class="errorBox" style="display:none;"></div>
+        </div>
+
+        <div id="detail" style="display:none;">
+          <div class="detailHead">
+            <div>
+              <p class="wordHanzi" id="wordHanzi"></p>
+              <div class="wordMeta" id="wordMeta"></div>
+            </div>
+          </div>
+
+          <div id="multiWarn" class="warn" style="display:none;">
+            Esta palabra tiene varios caracteres. Vas a ver <b>un canvas por carácter</b> para practicar la palabra completa.
+          </div>
+
+          <div class="charsWrap" id="charsWrap"></div>
+
+          <div class="footnote">
+            Tip: si no responden los botones o no aparece el carácter, suele ser porque el navegador bloqueó la carga de las librerías.
+            En ese caso, abrí “Inspeccionar → Console” y vas a ver el error de red.
+          </div>
         </div>
       </div>
     </div>
@@ -240,156 +244,237 @@
 
   <script>
     // -----------------------------
-    // Lista HSK 1 (mini por ahora)
+    // Lista inicial (mini) - reemplazable luego por HSK1 completo
     // -----------------------------
-    const HSK1 = [
-      { hanzi: "好", pinyin: "hǎo", meaning: "bueno / bien" },
-      { hanzi: "我", pinyin: "wǒ", meaning: "yo / me" },
-      { hanzi: "你", pinyin: "nǐ", meaning: "vos / tú" },
+    const WORDS = [
+      { hanzi: "你好", pinyin: "nǐ hǎo", meaning: "hola" },
+      { hanzi: "谢谢", pinyin: "xièxie", meaning: "gracias" },
+      { hanzi: "再见", pinyin: "zàijiàn", meaning: "chau / adiós" },
+      { hanzi: "中国", pinyin: "Zhōngguó", meaning: "China" },
+      { hanzi: "汉语", pinyin: "Hànyǔ", meaning: "idioma chino (mandarín)" },
+      { hanzi: "我", pinyin: "wǒ", meaning: "yo" },
+      { hanzi: "你", pinyin: "nǐ", meaning: "vos/tú" },
       { hanzi: "他", pinyin: "tā", meaning: "él" },
       { hanzi: "她", pinyin: "tā", meaning: "ella" },
-      { hanzi: "吗", pinyin: "ma", meaning: "partícula de pregunta" },
+      { hanzi: "是", pinyin: "shì", meaning: "ser/estar" },
       { hanzi: "不", pinyin: "bù", meaning: "no" },
-      { hanzi: "是", pinyin: "shì", meaning: "ser / estar" },
-      { hanzi: "有", pinyin: "yǒu", meaning: "tener / haber" },
-      { hanzi: "在", pinyin: "zài", meaning: "en / estar en" },
+      { hanzi: "有", pinyin: "yǒu", meaning: "tener/haber" },
+      { hanzi: "在", pinyin: "zài", meaning: "estar en" },
       { hanzi: "家", pinyin: "jiā", meaning: "casa" },
       { hanzi: "水", pinyin: "shuǐ", meaning: "agua" },
       { hanzi: "茶", pinyin: "chá", meaning: "té" },
-      { hanzi: "谢谢", pinyin: "xièxie", meaning: "gracias" },
-      { hanzi: "再见", pinyin: "zàijiàn", meaning: "chau / adiós" },
-      { hanzi: "今天", pinyin: "jīntiān", meaning: "hoy" },
-      { hanzi: "明天", pinyin: "míngtiān", meaning: "mañana" },
-      { hanzi: "中国", pinyin: "Zhōngguó", meaning: "China" },
-      { hanzi: "汉语", pinyin: "Hànyǔ", meaning: "idioma chino (mandarín)" }
     ];
 
     // -----------------------------
-    // Progreso guardado (local)
+    // Helpers
     // -----------------------------
-    const DONE_KEY = "hsk1_done_simple_v1";
-    let doneMap = {};
-    try { doneMap = JSON.parse(localStorage.getItem(DONE_KEY) || "{}"); } catch { doneMap = {}; }
+    const $ = (id) => document.getElementById(id);
 
-    function saveDone() {
-      localStorage.setItem(DONE_KEY, JSON.stringify(doneMap));
+    function normalize(s){
+      return (s || "").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
+    }
+
+    function splitChars(hanzi){
+      // Para CJK en BMP alcanza; devuelve array de caracteres
+      return Array.from(hanzi || "");
+    }
+
+    function libsOk(){
+      return !!(window.HanziWriter && window.HanziWriterData);
+    }
+
+    function showLibErrorIfNeeded(){
+      const box = $("libCheck");
+      if (libsOk()){
+        box.style.display = "none";
+        return;
+      }
+      box.style.display = "block";
+      box.textContent =
+        "❌ No se cargaron las librerías (HanziWriter). Esto pasa si se bloquea cdn.jsdelivr.net o si no hay internet. " +
+        "Probá recargar, o probar otro navegador/red.";
     }
 
     // -----------------------------
-    // UI
+    // Estado de vista
     // -----------------------------
-    const charBox = document.getElementById("charBox");
-    const statusEl = document.getElementById("status");
-    const wordSelect = document.getElementById("wordSelect");
-    const hanziText = document.getElementById("hanziText");
-    const pinyinText = document.getElementById("pinyinText");
-    const meaningText = document.getElementById("meaningText");
-    const progressPill = document.getElementById("progressPill");
+    let selectedIndex = null;
+    let activeWriters = []; // { idx, char, writer, statusEl }
 
-    let writer = null;
-    let current = null;
+    // -----------------------------
+    // Render lista (diccionario + buscador)
+    // -----------------------------
+    function renderList(){
+      const q = normalize($("search").value);
+      const listEl = $("list");
+      listEl.innerHTML = "";
 
-    function setStatus(msg){ statusEl.textContent = msg || ""; }
+      const filtered = WORDS
+        .map((w, i) => ({...w, i}))
+        .filter(w => {
+          if (!q) return true;
+          const hay = normalize(w.hanzi + " " + w.pinyin + " " + w.meaning);
+          return hay.includes(q);
+        });
 
-    function refreshProgress(){
-      const total = HSK1.length;
-      const done = Object.keys(doneMap).filter(k => doneMap[k]).length;
-      progressPill.textContent = `Progreso: ${done}/${total}`;
-    }
-
-    function fillSelect(){
-      wordSelect.innerHTML = "";
-      HSK1.forEach((item, idx) => {
-        const opt = document.createElement("option");
-        const mark = doneMap[item.hanzi] ? "✅ " : "";
-        opt.value = String(idx);
-        opt.textContent = `${mark}${item.hanzi} — ${item.pinyin} — ${item.meaning}`;
-        wordSelect.appendChild(opt);
-      });
-    }
-
-    function loadItem(idx){
-      current = HSK1[idx];
-      if (!current) return;
-
-      hanziText.textContent = current.hanzi;
-      pinyinText.textContent = current.pinyin;
-      meaningText.textContent = current.meaning;
-
-      setStatus("Cargando…");
-      charBox.innerHTML = "";
-
-      const data = HanziWriterData.getCharacterData(current.hanzi);
-      if (!data) {
-        setStatus("No hay datos de trazos para este carácter.");
-        writer = null;
+      if (!filtered.length){
+        const div = document.createElement("div");
+        div.className = "footnote";
+        div.textContent = "No hay resultados con esa búsqueda.";
+        listEl.appendChild(div);
         return;
       }
 
-      writer = HanziWriter.create(charBox, current.hanzi, {
-        width: 320,
-        height: 320,
-        padding: 10,
-        showOutline: true,
-        strokeColor: "#ffffff",
-        outlineColor: "rgba(255,255,255,0.25)",
-        drawingColor: "rgba(255,105,180,0.95)",
-        drawingWidth: 6
-      });
+      for (const w of filtered){
+        const item = document.createElement("div");
+        item.className = "item";
+        item.addEventListener("click", () => openDetail(w.i));
 
-      setStatus("Listo. Tocá “Ver paso a paso” o “Practicar”.");
+        item.innerHTML = `
+          <div class="itemTop">
+            <div class="hanziBig">${w.hanzi}</div>
+            <div class="pinyin">${w.pinyin}</div>
+          </div>
+          <div class="meaning">${w.meaning}</div>
+        `;
+        listEl.appendChild(item);
+      }
     }
 
-    // 1) Paso a paso (orden de trazos)
-    function showSteps(){
-      if (!writer) return;
-      setStatus("Mostrando orden de trazos…");
-      writer.cancelQuiz();
-      writer.animateCharacter({
-        onComplete: () => setStatus("Fin del paso a paso. Ahora practicá.")
-      });
+    // -----------------------------
+    // Detail view: múltiples canvases
+    // -----------------------------
+    function destroyWriters(){
+      // HanziWriter no requiere "dispose" estricto, pero limpiamos referencia + quiz
+      for (const w of activeWriters){
+        try { w.writer?.cancelQuiz?.(); } catch {}
+      }
+      activeWriters = [];
     }
 
-    // 2) Practicar dibujando con el cursor (validación)
-    function startQuiz(){
-      if (!writer || !current) return;
-      setStatus("Práctica: dibujá el primer trazo.");
+    function openDetail(i){
+      selectedIndex = i;
+      const w = WORDS[i];
 
-      writer.quiz({
-        onMistake: () => setStatus("❌ Incorrecto. Reintentá el mismo trazo."),
-        onCorrectStroke: (strokeData) => {
-          const next = strokeData.strokeNum + 1;
-          setStatus(`✅ Bien. Ahora el trazo ${next}.`);
-        },
-        onComplete: () => {
-          setStatus("🎉 Perfecto. ¡Lo hiciste bien!");
-          doneMap[current.hanzi] = true;
-          saveDone();
-          refreshProgress();
-          fillSelect();
+      $("detailEmpty").style.display = "none";
+      $("detail").style.display = "block";
+      $("backBtn").style.display = "inline-block";
+
+      $("wordHanzi").textContent = w.hanzi;
+      $("wordMeta").textContent = `${w.pinyin} • ${w.meaning}`;
+
+      const chars = splitChars(w.hanzi);
+      $("multiWarn").style.display = chars.length > 1 ? "block" : "none";
+
+      // limpiar
+      destroyWriters();
+      const wrap = $("charsWrap");
+      wrap.innerHTML = "";
+
+      // chequeo librerías
+      if (!libsOk()){
+        wrap.innerHTML = `<div class="errorBox">❌ No se cargaron las librerías. Recargá o probá otra red/navegador.</div>`;
+        return;
+      }
+
+      // crear tarjetas por carácter
+      chars.forEach((ch, idx) => {
+        const id = `canvas_${i}_${idx}_${Date.now()}`;
+        const statusId = `status_${i}_${idx}_${Date.now()}`;
+
+        const card = document.createElement("div");
+        card.className = "charCard";
+        card.innerHTML = `
+          <div class="charTop">
+            <div class="charLabel">Carácter ${idx + 1}: <span style="font-size:22px;">${ch}</span></div>
+          </div>
+
+          <div class="canvas" id="${id}"></div>
+
+          <div class="btns">
+            <button class="primary small" data-action="animate" data-idx="${idx}">Ver paso a paso</button>
+            <button class="small" data-action="quiz" data-idx="${idx}">Practicar</button>
+            <button class="small" data-action="reset" data-idx="${idx}">Reset</button>
+          </div>
+
+          <div class="status" id="${statusId}">Listo.</div>
+        `;
+        wrap.appendChild(card);
+
+        // inicializar writer
+        const data = HanziWriterData.getCharacterData(ch);
+        const statusEl = document.getElementById(statusId);
+        if (!data){
+          statusEl.textContent = "❌ No hay datos de trazos para este carácter.";
+          return;
         }
+
+        const writer = HanziWriter.create(document.getElementById(id), ch, {
+          width: 260,
+          height: 260,
+          padding: 10,
+          showOutline: true,
+          strokeColor: "#ffffff",
+          outlineColor: "rgba(255,255,255,0.25)",
+          drawingColor: "rgba(255,105,180,0.95)",
+          drawingWidth: 6
+        });
+
+        activeWriters.push({ idx, char: ch, writer, statusEl });
+      });
+
+      // conectar botones de cada tarjeta
+      wrap.querySelectorAll("button[data-action]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const idx = Number(btn.getAttribute("data-idx"));
+          const action = btn.getAttribute("data-action");
+          const entry = activeWriters.find(x => x.idx === idx);
+          if (!entry) return;
+
+          if (action === "animate"){
+            entry.statusEl.textContent = "Mostrando paso a paso…";
+            try { entry.writer.cancelQuiz(); } catch {}
+            entry.writer.animateCharacter({
+              onComplete: () => entry.statusEl.textContent = "Fin. Ahora podés practicar."
+            });
+          }
+
+          if (action === "quiz"){
+            entry.statusEl.textContent = "Práctica: dibujá el primer trazo.";
+            entry.writer.quiz({
+              onMistake: () => entry.statusEl.textContent = "❌ Incorrecto. Reintentá el mismo trazo.",
+              onCorrectStroke: (strokeData) => entry.statusEl.textContent = `✅ Bien. Ahora el trazo ${strokeData.strokeNum + 1}.`,
+              onComplete: () => entry.statusEl.textContent = "🎉 Perfecto. ¡Carácter completado!"
+            });
+          }
+
+          if (action === "reset"){
+            try { entry.writer.cancelQuiz(); } catch {}
+            entry.writer.hideCharacter();
+            entry.writer.showCharacter();
+            entry.statusEl.textContent = "Reseteado.";
+          }
+        });
       });
     }
 
-    // Reset canvas
-    function resetCanvas(){
-      if (!writer) return;
-      writer.cancelQuiz();
-      writer.hideCharacter();
-      writer.showCharacter();
-      setStatus("Reseteado.");
+    function goBack(){
+      selectedIndex = null;
+      destroyWriters();
+      $("detail").style.display = "none";
+      $("detailEmpty").style.display = "block";
+      $("backBtn").style.display = "none";
+      showLibErrorIfNeeded();
     }
 
-    // Eventos
-    wordSelect.addEventListener("change", () => loadItem(Number(wordSelect.value)));
-    document.getElementById("showBtn").addEventListener("click", showSteps);
-    document.getElementById("quizBtn").addEventListener("click", startQuiz);
-    document.getElementById("resetBtn").addEventListener("click", resetCanvas);
-
+    // -----------------------------
     // Init
-    fillSelect();
-    refreshProgress();
-    loadItem(0);
+    // -----------------------------
+    $("search").addEventListener("input", renderList);
+    $("backBtn").addEventListener("click", goBack);
+
+    renderList();
+    showLibErrorIfNeeded();
   </script>
 </body>
 </html>
