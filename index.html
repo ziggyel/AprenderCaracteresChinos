@@ -100,7 +100,7 @@ body.light{
       padding:7px 10px;
       border-radius:999px;
       border:1px solid var(--border);
-      background:rgba(255,255,255,.06);
+    background: var(--btnbg);
       color:rgba(255,255,255,.85);
       white-space:nowrap;
     }
@@ -208,7 +208,7 @@ body.light{
       border-radius:12px;
       padding:10px 12px;
       border:1px solid var(--border);
-      background:rgba(255,255,255,.08);
+      background: var(--btnbg);
       color:var(--fg);
       cursor:pointer;
       font-weight:600;
@@ -326,6 +326,7 @@ body.light{
             <button id="btnAnimate" class="secondary" disabled>Ver trazos</button>
             <button id="btnPractice" disabled>Practicar</button>
             <button id="btnReset" class="secondary" disabled>Reiniciar</button>
+            <button id="btnTheme" class="secondary">Modo claro</button>
           </div>
         </div>
 
@@ -383,6 +384,22 @@ body.light{
     const btnAnimate = document.getElementById("btnAnimate");
     const btnPractice = document.getElementById("btnPractice");
     const btnReset = document.getElementById("btnReset");
+const btnTheme = document.getElementById("btnTheme");
+
+function applyTheme(theme){
+  const isLight = theme === "light";
+  document.body.classList.toggle("light", isLight);
+  btnTheme.textContent = isLight ? "Modo oscuro" : "Modo claro";
+  localStorage.setItem("theme", theme);
+}
+
+btnTheme.addEventListener("click", () => {
+  const next = document.body.classList.contains("light") ? "dark" : "light";
+  applyTheme(next);
+});
+
+// al cargar
+applyTheme(localStorage.getItem("theme") || "dark");
 
     let currentEntry = null;
     let writers = [];       // writers por caracter
@@ -575,4 +592,5 @@ body.light{
   </script>
 </body>
 </html>
+
 
