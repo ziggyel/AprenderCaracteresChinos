@@ -289,6 +289,18 @@
       .list{max-height:260px}
       input[type="search"]{max-width:100%}
     }
+    /* Efecto "tinta/pincel": suaviza y engorda visualmente */
+.canvasBox svg,
+.canvasBox canvas{
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,.35));
+}
+
+/* Bordes redondos (se siente menos “lápiz”) */
+.canvasBox svg path{
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
   </style>
 </head>
 <body>
@@ -580,8 +592,9 @@
             showCharacter: true,
             strokeColor: "#ffffff",
             outlineColor: "rgba(255,255,255,0.25)",
-            drawingColor: "rgba(255,105,180,0.95)",
-            drawingWidth: 6,
+            drawingColor: "rgba(110, 10, 35, 0.90)",  // rosa más “tinta”
+            drawingWidth: 14,                           // más grueso
+
             charDataLoader: localCharDataLoader
           });
 
@@ -674,6 +687,7 @@
   </script>
 </body>
 </html>
+
 
 
 
