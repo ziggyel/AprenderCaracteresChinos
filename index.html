@@ -62,11 +62,12 @@
       font-size:14px;
       backdrop-filter: blur(6px);
     }
-    input{
+   #search{
   width: 100%;
   max-width: 360px;
   min-width: 220px;
 }
+
 
     button{ cursor:pointer; }
     button.primary{ background:var(--accent); border:none; color:white; }
@@ -186,8 +187,7 @@
   </style>
 
   <!-- Librerías (orden importante) -->
-<script src="https://unpkg.com/hanzi-writer@3.7.0/dist/hanziwriter.min.js"></script>
-<script src="https://unpkg.com/hanzi-writer-data@2.0.0/hanzi-writer-data.min.js"></script>
+<script src="https://unpkg.com/hanzi-writer@3.7.3/dist/hanziwriter.min.js"></script>
 </head>
 
 <body>
@@ -248,6 +248,22 @@
   </div>
 
   <script>
+    // Loader de datos de caracteres (trae el JSON de trazos desde unpkg)
+const charDataCache = new Map();
+
+async function loadCharData(char) {
+  if (charDataCache.has(char)) return charDataCache.get(char);
+
+  const url = `https://unpkg.com/hanzi-writer-data@2.0.1/${encodeURIComponent(char)}.json`;
+  const p = fetch(url).then(r => {
+    if (!r.ok) throw new Error(`No pude cargar datos para ${char} (${r.status})`);
+    return r.json();
+  });
+
+  charDataCache.set(char, p);
+  return p;
+}
+
     // -----------------------------
     // Lista inicial (mini) - reemplazable luego por HSK1 completo
     // -----------------------------
@@ -406,24 +422,23 @@
         `;
         wrap.appendChild(card);
 
-        // inicializar writer
-        const data = HanziWriterData.getCharacterData(ch);
-        const statusEl = document.getElementById(statusId);
-        if (!data){
-          statusEl.textContent = "❌ No hay datos de trazos para este carácter.";
-          return;
-        }
+      // inicializar writer
+const statusEl = document.getElementById(statusId);
 
-        const writer = HanziWriter.create(document.getElementById(id), ch, {
-          width: 260,
-          height: 260,
-          padding: 10,
-          showOutline: true,
-          strokeColor: "#ffffff",
-          outlineColor: "rgba(255,255,255,0.25)",
-          drawingColor: "rgba(255,105,180,0.95)",
-          drawingWidth: 6
-        });
+const writer = HanziWriter.create(document.getElementById(id), ch, {
+  width: 260,
+  height: 260,
+  padding: 10,
+  showOutline: true,
+  strokeColor: "#ffffff",
+  outlineColor: "rgba(255,255,255,0.25)",
+  drawingColor: "rgba(255,105,180,0.95)",
+  drawingWidth: 6,
+
+  // 🔥 Carga los datos del carácter desde internet (JSON)
+  charDataLoader: (c) => loadCharData(c),
+});
+
 
         activeWriters.push({ idx, char: ch, writer, statusEl });
       });
