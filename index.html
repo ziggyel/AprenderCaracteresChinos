@@ -3,42 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>🇨🇳 HSK 1 • Práctica de Hanzi</title>
+  <title>🇨🇳 HSK 1 • Practicar Hanzi</title>
 
   <style>
     :root{
-      --bg1: #0b0b10;
-      --bg2: #101022;
-      --text: rgba(255,255,255,0.95);
-      --muted: rgba(255,255,255,0.75);
-      --card: rgba(255,255,255,0.06);
-      --border: rgba(255,255,255,0.12);
-      --border2: rgba(255,255,255,0.18);
-      --panel: rgba(0,0,0,0.25);
-      --dash: rgba(255,255,255,0.18);
-      --accent: rgba(255,105,180,0.9);
-      --chinaRed: rgba(255, 35, 35, 0.9);
-      --chinaRedSoft: rgba(255, 35, 35, 0.22);
-      --shadow: rgba(0,0,0,0.45);
-      --outline: rgba(255,255,255,0.25);
-    }
-
-    /* Modo claro */
-    [data-theme="light"]{
-      --bg1: #f7f7fb;
-      --bg2: #ffffff;
-      --text: rgba(10,10,16,0.95);
-      --muted: rgba(10,10,16,0.70);
-      --card: rgba(10,10,16,0.04);
-      --border: rgba(10,10,16,0.10);
-      --border2: rgba(10,10,16,0.14);
-      --panel: rgba(10,10,16,0.04);
-      --dash: rgba(10,10,16,0.16);
-      --accent: rgba(255,105,180,0.85);
-      --chinaRed: rgba(220, 20, 20, 0.92);
-      --chinaRedSoft: rgba(220, 20, 20, 0.16);
-      --shadow: rgba(0,0,0,0.15);
-      --outline: rgba(10,10,16,0.20);
+      --bg1:#0b0b10;
+      --bg2:#101022;
+      --text:rgba(255,255,255,.95);
+      --muted:rgba(255,255,255,.75);
+      --card:rgba(255,255,255,.06);
+      --border:rgba(255,255,255,.12);
+      --border2:rgba(255,255,255,.18);
+      --panel:rgba(0,0,0,.25);
+      --dash:rgba(255,255,255,.18);
+      --accent:rgba(255,105,180,.9);
+      --chinaRedSoft:rgba(255,35,35,.18);
+      --shadow:rgba(0,0,0,.45);
     }
 
     body{
@@ -47,70 +27,47 @@
       display:grid;
       place-items:center;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      color: var(--text);
+      color:var(--text);
       padding:16px;
-      position: relative;
-      overflow-x: hidden;
-
+      position:relative;
+      overflow-x:hidden;
       background:
         radial-gradient(circle at top, rgba(255,192,203,.18), transparent 55%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
+        linear-gradient(180deg,var(--bg1),var(--bg2));
     }
 
-    /* Letras chinas difuminadas en el fondo */
+    /* Letras chinas difuminadas atrás */
     body::before{
-      content:"汉字 中文 学习 你好 谢谢 再见 我 你 他 她 是 不 有 在 家 水 茶 米饭 今天 明天 中国 汉语 学校 老师 学生 朋友 爱 喜欢";
-      position: fixed;
-      inset: -60px;
-      font-size: 66px;
-      line-height: 1.8;
-      letter-spacing: 8px;
-      opacity: 0.06;
-      filter: blur(1.2px);
-      transform: rotate(-10deg);
-      pointer-events: none;
-      white-space: pre-wrap;
-      color: var(--text);
-      mix-blend-mode: normal;
+      content:"汉字 中文 学习 你好 谢谢 再见 我 你 他 她 是 不 有 在 家 水 茶 米饭 今天 明天 中国 汉语";
+      position:fixed;
+      inset:-60px;
+      font-size:66px;
+      line-height:1.8;
+      letter-spacing:8px;
+      opacity:0.06;
+      filter:blur(1.2px);
+      transform:rotate(-10deg);
+      pointer-events:none;
+      white-space:pre-wrap;
     }
 
-    /* Brillo rojo suave */
     body::after{
       content:"";
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(circle at 20% 20%, var(--chinaRedSoft), transparent 45%),
-        radial-gradient(circle at 80% 70%, rgba(255,215,0,0.10), transparent 42%);
-      pointer-events: none;
+      position:fixed;
+      inset:0;
+      background: radial-gradient(circle at 20% 20%, var(--chinaRedSoft), transparent 50%);
+      pointer-events:none;
     }
 
     .card{
-      width:min(1020px, 96vw);
-      background: var(--card);
+      width:min(980px, 96vw);
+      background:var(--card);
       border:1px solid var(--border);
       border-radius:18px;
       padding:18px;
       box-shadow:0 20px 60px var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Borde rojo suave estilo “China” */
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      border-radius:20px;
-      padding:2px;
-      background: linear-gradient(135deg, rgba(255,35,35,0.35), transparent 40%, rgba(255,215,0,0.18));
-      -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events:none;
-      opacity: 0.9;
+      position:relative;
+      overflow:hidden;
     }
 
     .top{
@@ -119,57 +76,18 @@
       flex-wrap:wrap;
       align-items:center;
       justify-content:space-between;
-      position: relative;
-      z-index: 1;
     }
 
-    .titleWrap{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-    }
-
-    /* Sello rojo (badge) */
-    .seal{
-      width:40px;
-      height:40px;
-      border-radius:12px;
-      background: linear-gradient(180deg, var(--chinaRed), rgba(180,0,0,0.92));
-      display:grid;
-      place-items:center;
-      box-shadow: 0 14px 30px rgba(255,35,35,0.18);
-      border: 1px solid rgba(255,255,255,0.14);
-      flex: 0 0 auto;
-      position: relative;
-      overflow:hidden;
-    }
-    .seal::after{
-      content:"";
-      position:absolute;
-      inset:-18px;
-      background: radial-gradient(circle at top left, rgba(255,255,255,0.25), transparent 45%);
-      transform: rotate(15deg);
-      opacity: 0.8;
-    }
-    .seal span{
-      font-weight:900;
-      letter-spacing:1px;
-      position: relative;
-      z-index:1;
-      color:white;
-    }
-
-    .heading{
+    .title{
       font-size:18px;
       font-weight:900;
-      letter-spacing: -0.2px;
       margin:0;
     }
+
     .hint{
-      opacity: var(--muted);
+      opacity:var(--muted);
       font-size:13px;
-      line-height:1.4;
-      margin-top:3px;
+      margin-top:4px;
     }
 
     .controls{
@@ -179,56 +97,51 @@
       align-items:center;
     }
 
-    button, select, textarea{
-      background: rgba(255,255,255,0.10);
-      color: var(--text);
+    button, select{
+      background:rgba(255,255,255,.10);
+      color:var(--text);
       border:1px solid var(--border2);
       border-radius:12px;
       padding:10px 12px;
       font-size:14px;
+      cursor:pointer;
       backdrop-filter: blur(6px);
     }
-    select{ max-width: 520px; }
-    button{ cursor:pointer; }
+
     button.primary{
-      background: var(--accent);
-      color: white;
-      border: none;
-    }
-    button.china{
-      background: rgba(255,35,35,0.16);
-      border: 1px solid rgba(255,35,35,0.28);
+      background:var(--accent);
+      border:none;
+      color:white;
     }
 
     .grid{
       margin-top:14px;
       display:grid;
-      grid-template-columns: 1fr;
+      grid-template-columns:1fr;
       gap:14px;
-      position: relative;
-      z-index: 1;
     }
+
     @media(min-width:920px){
-      .grid{ grid-template-columns: 420px 1fr; }
+      .grid{ grid-template-columns:420px 1fr; }
     }
 
     .panel{
-      background: var(--panel);
-      border:1px solid rgba(255,255,255,0.10);
+      background:var(--panel);
+      border:1px solid rgba(255,255,255,.10);
       border-radius:14px;
       padding:14px;
     }
 
     .boxTitle{
-      opacity: var(--muted);
+      opacity:var(--muted);
       margin:0 0 8px;
-      font-weight: 700;
+      font-weight:700;
     }
 
     #charBox{
       width:320px;
       height:320px;
-      background: rgba(255,255,255,0.03);
+      background:rgba(255,255,255,.03);
       border:1px dashed var(--dash);
       border-radius:14px;
       display:grid;
@@ -239,14 +152,28 @@
     #status{
       margin-top:10px;
       min-height:22px;
-      opacity:0.92;
       text-align:center;
+      opacity:.92;
     }
 
-    .meta{ text-align:center; margin-top:10px; }
-    .meta .hanzi{ font-size:34px; font-weight:900; letter-spacing:1px; }
-    .meta .pinyin{ opacity:.9; font-size:16px; margin-top:4px; }
-    .meta .meaning{ opacity: var(--muted); font-size:14px; margin-top:2px; }
+    .meta{
+      text-align:center;
+      margin-top:10px;
+    }
+    .meta .hanzi{
+      font-size:36px;
+      font-weight:900;
+    }
+    .meta .pinyin{
+      margin-top:4px;
+      opacity:.9;
+      font-size:16px;
+    }
+    .meta .meaning{
+      margin-top:2px;
+      opacity:var(--muted);
+      font-size:14px;
+    }
 
     .pill{
       display:inline-block;
@@ -254,37 +181,13 @@
       padding:6px 10px;
       border-radius:999px;
       border:1px solid var(--border2);
-      background: rgba(255,255,255,0.07);
+      background:rgba(255,255,255,.07);
       font-size:13px;
       opacity:.95;
     }
-
-    textarea{
-      width:100%;
-      min-height:140px;
-      resize:vertical;
-    }
-
-    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-    .spacer{ flex: 1 1 auto; }
-
-    .themeToggle{
-      display:flex; align-items:center; gap:10px;
-      padding: 9px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--border2);
-      background: rgba(255,255,255,0.07);
-      user-select:none;
-      cursor:pointer;
-    }
-    .dot{
-      width:10px; height:10px; border-radius:999px;
-      background: rgba(255,215,0,0.85);
-      box-shadow: 0 0 0 6px rgba(255,215,0,0.12);
-    }
   </style>
 
-  <!-- Librerías -->
+  <!-- Librerías para trazos + práctica -->
   <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7/dist/hanziwriter.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/hanzi-writer-data.min.js"></script>
 </head>
@@ -292,32 +195,26 @@
 <body>
   <div class="card">
     <div class="top">
-      <div class="titleWrap">
-        <div class="seal" title="中国"><span>中</span></div>
-        <div>
-          <p class="heading">🇨🇳✨ HSK 1 • Práctica de Hanzi</p>
-          <div class="hint">Elegí una palabra, mirá el orden de trazos y practicá hasta completarla (se guarda el progreso).</div>
+      <div>
+        <p class="title">🇨🇳 HSK 1 • Practicar caracteres chinos</p>
+        <div class="hint">
+          1) Ver trazos → 2) Practicar dibujando con el cursor → 3) Te dice si está bien o mal.
         </div>
       </div>
 
       <div class="controls">
-        <div class="themeToggle" id="themeToggle" title="Cambiar modo">
-          <div class="dot"></div>
-          <div style="font-size:13px; opacity:.9;" id="themeLabel">Modo oscuro</div>
-        </div>
-
-        <label class="hint" style="margin-left:4px;">HSK 1:</label>
+        <label class="hint">Palabra:</label>
         <select id="wordSelect"></select>
 
-        <button class="primary" id="showBtn">Ver trazos</button>
+        <button class="primary" id="showBtn">Ver paso a paso</button>
         <button id="quizBtn">Practicar</button>
-        <button class="china" id="resetBtn">Reset</button>
+        <button id="resetBtn">Reset</button>
       </div>
     </div>
 
     <div class="grid">
       <div class="panel">
-        <p class="boxTitle">Canvas</p>
+        <p class="boxTitle">Canvas (acá dibujás)</p>
         <div id="charBox"></div>
 
         <div class="meta">
@@ -328,30 +225,14 @@
         </div>
 
         <div id="status"></div>
-
-        <div class="hint" style="margin-top:10px;">
-          En “Practicar”, tenés que hacer los trazos en orden. Si te equivocás te deja reintentar el trazo.
-        </div>
       </div>
 
       <div class="panel">
-        <p class="boxTitle">Importar la lista completa HSK 1 (una vez)</p>
+        <p class="boxTitle">Cómo usarlo</p>
         <div class="hint">
-          Pegá líneas con este formato (una por línea): <b>汉字|pinyin|significado</b><br/>
-          Ejemplo: <span style="opacity:.9">好|hǎo|bueno</span>
-        </div>
-
-        <textarea id="importBox" placeholder="Pegá acá la lista completa..."></textarea>
-
-        <div class="row" style="margin-top:10px;">
-          <button id="importBtn">Importar</button>
-          <button class="china" id="clearProgressBtn">Borrar progreso</button>
-          <div class="spacer"></div>
-          <div class="hint">Tip: si importás, se reemplaza el menú.</div>
-        </div>
-
-        <div class="hint" style="margin-top:10px;">
-          Extras que podemos sumar después: HSK por niveles, puntos, racha diaria, repaso de fallados, audio de pinyin.
+          <b>Ver paso a paso</b>: te muestra el orden de trazos.<br/><br/>
+          <b>Practicar</b>: dibujás con el mouse/trackpad y valida si hiciste el trazo correcto (orden y forma).<br/><br/>
+          Cuando completás bien, queda guardado como “hecho” ✅.
         </div>
       </div>
     </div>
@@ -359,33 +240,9 @@
 
   <script>
     // -----------------------------
-    // Tema (oscuro/claro)
+    // Lista HSK 1 (mini por ahora)
     // -----------------------------
-    const THEME_KEY = "hanzi_theme_v1";
-    const themeToggle = document.getElementById("themeToggle");
-    const themeLabel = document.getElementById("themeLabel");
-
-    function applyTheme(theme){
-      document.documentElement.setAttribute("data-theme", theme);
-      themeLabel.textContent = theme === "light" ? "Modo claro" : "Modo oscuro";
-      localStorage.setItem(THEME_KEY, theme);
-    }
-    const savedTheme = localStorage.getItem(THEME_KEY) || "dark";
-    applyTheme(savedTheme);
-
-    themeToggle.addEventListener("click", () => {
-      const current = document.documentElement.getAttribute("data-theme") || "dark";
-      applyTheme(current === "dark" ? "light" : "dark");
-    });
-
-    // -----------------------------
-    // Datos + guardado de progreso
-    // -----------------------------
-    const STORAGE_LIST_KEY = "hsk1_list_v1";
-    const STORAGE_DONE_KEY = "hsk1_done_v1";
-
-    // Starter (podés importar la lista completa)
-    const starterList = [
+    const HSK1 = [
       { hanzi: "好", pinyin: "hǎo", meaning: "bueno / bien" },
       { hanzi: "我", pinyin: "wǒ", meaning: "yo / me" },
       { hanzi: "你", pinyin: "nǐ", meaning: "vos / tú" },
@@ -404,36 +261,22 @@
       { hanzi: "今天", pinyin: "jīntiān", meaning: "hoy" },
       { hanzi: "明天", pinyin: "míngtiān", meaning: "mañana" },
       { hanzi: "中国", pinyin: "Zhōngguó", meaning: "China" },
-      { hanzi: "汉语", pinyin: "Hànyǔ", meaning: "idioma chino (mandarín)" },
+      { hanzi: "汉语", pinyin: "Hànyǔ", meaning: "idioma chino (mandarín)" }
     ];
 
-    function loadList() {
-      const raw = localStorage.getItem(STORAGE_LIST_KEY);
-      if (!raw) return starterList;
-      try {
-        const parsed = JSON.parse(raw);
-        return Array.isArray(parsed) && parsed.length ? parsed : starterList;
-      } catch {
-        return starterList;
-      }
-    }
+    // -----------------------------
+    // Progreso guardado (local)
+    // -----------------------------
+    const DONE_KEY = "hsk1_done_simple_v1";
+    let doneMap = {};
+    try { doneMap = JSON.parse(localStorage.getItem(DONE_KEY) || "{}"); } catch { doneMap = {}; }
 
-    function saveList(list) {
-      localStorage.setItem(STORAGE_LIST_KEY, JSON.stringify(list));
-    }
-
-    function loadDoneMap() {
-      const raw = localStorage.getItem(STORAGE_DONE_KEY);
-      if (!raw) return {};
-      try { return JSON.parse(raw) || {}; } catch { return {}; }
-    }
-
-    function saveDoneMap(map) {
-      localStorage.setItem(STORAGE_DONE_KEY, JSON.stringify(map));
+    function saveDone() {
+      localStorage.setItem(DONE_KEY, JSON.stringify(doneMap));
     }
 
     // -----------------------------
-    // UI refs
+    // UI
     // -----------------------------
     const charBox = document.getElementById("charBox");
     const statusEl = document.getElementById("status");
@@ -442,46 +285,43 @@
     const pinyinText = document.getElementById("pinyinText");
     const meaningText = document.getElementById("meaningText");
     const progressPill = document.getElementById("progressPill");
-    const importBox = document.getElementById("importBox");
 
-    let list = loadList();
-    let doneMap = loadDoneMap();
     let writer = null;
     let current = null;
 
-    function setStatus(msg) { statusEl.textContent = msg || ""; }
+    function setStatus(msg){ statusEl.textContent = msg || ""; }
 
-    function refreshProgress() {
-      const total = list.length;
+    function refreshProgress(){
+      const total = HSK1.length;
       const done = Object.keys(doneMap).filter(k => doneMap[k]).length;
       progressPill.textContent = `Progreso: ${done}/${total}`;
     }
 
-    function fillSelect() {
+    function fillSelect(){
       wordSelect.innerHTML = "";
-      list.forEach((item, idx) => {
+      HSK1.forEach((item, idx) => {
         const opt = document.createElement("option");
-        const done = doneMap[item.hanzi] ? "✅ " : "";
+        const mark = doneMap[item.hanzi] ? "✅ " : "";
         opt.value = String(idx);
-        opt.textContent = `${done}${item.hanzi} — ${item.pinyin} — ${item.meaning}`;
+        opt.textContent = `${mark}${item.hanzi} — ${item.pinyin} — ${item.meaning}`;
         wordSelect.appendChild(opt);
       });
     }
 
-    function loadItem(idx) {
-      current = list[idx];
+    function loadItem(idx){
+      current = HSK1[idx];
       if (!current) return;
 
       hanziText.textContent = current.hanzi;
       pinyinText.textContent = current.pinyin;
       meaningText.textContent = current.meaning;
 
-      setStatus("Cargando trazos…");
+      setStatus("Cargando…");
       charBox.innerHTML = "";
 
       const data = HanziWriterData.getCharacterData(current.hanzi);
       if (!data) {
-        setStatus("No hay datos de trazos para esto (probá otra palabra/caracter).");
+        setStatus("No hay datos de trazos para este carácter.");
         writer = null;
         return;
       }
@@ -491,45 +331,48 @@
         height: 320,
         padding: 10,
         showOutline: true,
-        strokeColor: getComputedStyle(document.documentElement).getPropertyValue("--text").trim() || "#ffffff",
-        outlineColor: getComputedStyle(document.documentElement).getPropertyValue("--outline").trim() || "rgba(255,255,255,0.25)",
+        strokeColor: "#ffffff",
+        outlineColor: "rgba(255,255,255,0.25)",
         drawingColor: "rgba(255,105,180,0.95)",
         drawingWidth: 6
       });
 
-      setStatus("Listo. Ver trazos o practicar.");
+      setStatus("Listo. Tocá “Ver paso a paso” o “Practicar”.");
     }
 
-    function showSteps() {
+    // 1) Paso a paso (orden de trazos)
+    function showSteps(){
       if (!writer) return;
-      setStatus("Mostrando trazos…");
+      setStatus("Mostrando orden de trazos…");
       writer.cancelQuiz();
       writer.animateCharacter({
-        onComplete: () => setStatus("Fin. Ahora podés practicar.")
+        onComplete: () => setStatus("Fin del paso a paso. Ahora practicá.")
       });
     }
 
-    function startQuiz() {
+    // 2) Practicar dibujando con el cursor (validación)
+    function startQuiz(){
       if (!writer || !current) return;
-      setStatus("Modo práctica: hacé el primer trazo.");
+      setStatus("Práctica: dibujá el primer trazo.");
 
       writer.quiz({
-        onMistake: () => setStatus("❌ Ese trazo no fue correcto. Reintentá el mismo trazo."),
+        onMistake: () => setStatus("❌ Incorrecto. Reintentá el mismo trazo."),
         onCorrectStroke: (strokeData) => {
           const next = strokeData.strokeNum + 1;
           setStatus(`✅ Bien. Ahora el trazo ${next}.`);
         },
         onComplete: () => {
-          setStatus("🎉 Perfecto. ¡Completado!");
+          setStatus("🎉 Perfecto. ¡Lo hiciste bien!");
           doneMap[current.hanzi] = true;
-          saveDoneMap(doneMap);
+          saveDone();
           refreshProgress();
           fillSelect();
         }
       });
     }
 
-    function resetCanvas() {
+    // Reset canvas
+    function resetCanvas(){
       if (!writer) return;
       writer.cancelQuiz();
       writer.hideCharacter();
@@ -537,68 +380,13 @@
       setStatus("Reseteado.");
     }
 
-    // -----------------------------
-    // Importar lista completa
-    // -----------------------------
-    function parseImport(text) {
-      const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-      const out = [];
-      for (const line of lines) {
-        const parts = line.split("|").map(p => p.trim());
-        if (parts.length < 3) continue;
-        const [hanzi, pinyin, meaning] = parts;
-        if (!hanzi || !pinyin || !meaning) continue;
-        out.push({ hanzi, pinyin, meaning });
-      }
-      return out;
-    }
-
-    document.getElementById("importBtn").addEventListener("click", () => {
-      const parsed = parseImport(importBox.value || "");
-      if (!parsed.length) {
-        setStatus("No pude importar: pegá líneas en formato hanzi|pinyin|significado.");
-        return;
-      }
-      list = parsed;
-      saveList(list);
-      setStatus(`Importado: ${list.length} items.`);
-
-      // limpiar progreso de items que ya no existan
-      const allowed = new Set(list.map(x => x.hanzi));
-      for (const k of Object.keys(doneMap)) if (!allowed.has(k)) delete doneMap[k];
-      saveDoneMap(doneMap);
-
-      fillSelect();
-      refreshProgress();
-      loadItem(0);
-    });
-
-    document.getElementById("clearProgressBtn").addEventListener("click", () => {
-      doneMap = {};
-      saveDoneMap(doneMap);
-      fillSelect();
-      refreshProgress();
-      setStatus("Progreso borrado.");
-    });
-
-    // -----------------------------
     // Eventos
-    // -----------------------------
     wordSelect.addEventListener("change", () => loadItem(Number(wordSelect.value)));
     document.getElementById("showBtn").addEventListener("click", showSteps);
     document.getElementById("quizBtn").addEventListener("click", startQuiz);
     document.getElementById("resetBtn").addEventListener("click", resetCanvas);
 
-    // Si cambiás tema, recargamos el carácter para que el outline se vea bien en claro/oscuro
-    themeToggle.addEventListener("click", () => {
-      // un pelín de delay para que apliquen las variables
-      setTimeout(() => {
-        const idx = Number(wordSelect.value || "0");
-        loadItem(idx);
-      }, 50);
-    });
-
-    // init
+    // Init
     fillSelect();
     refreshProgress();
     loadItem(0);
