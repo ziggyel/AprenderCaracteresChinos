@@ -62,7 +62,12 @@
       font-size:14px;
       backdrop-filter: blur(6px);
     }
-    input{ min-width:min(520px, 90vw); }
+    input{
+  width: 100%;
+  max-width: 360px;
+  min-width: 220px;
+}
+
     button{ cursor:pointer; }
     button.primary{ background:var(--accent); border:none; color:white; }
     button.ghost{ background:rgba(255,255,255,.07); }
@@ -181,8 +186,8 @@
   </style>
 
   <!-- Librerías (orden importante) -->
-  <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7/dist/hanziwriter.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/hanzi-writer-data.min.js"></script>
+<script src="https://unpkg.com/hanzi-writer@3.7.0/dist/hanziwriter.min.js"></script>
+<script src="https://unpkg.com/hanzi-writer-data@2.0.0/hanzi-writer-data.min.js"></script>
 </head>
 
 <body>
