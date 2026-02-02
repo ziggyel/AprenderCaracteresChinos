@@ -524,6 +524,126 @@
   { hanzi: "前", pinyin: "qián", meaning: "antes / adelante" },
   { hanzi: "后", pinyin: "hòu", meaning: "después / atrás" },
   { hanzi: "里", pinyin: "lǐ", meaning: "adentro / dentro" }
+      const DICT = [
+  { hanzi:"我", pinyin:"wǒ", meaning:"yo / me" },
+  { hanzi:"我们", pinyin:"wǒmen", meaning:"nosotros" },
+  { hanzi:"你", pinyin:"nǐ", meaning:"tú / you" },
+  { hanzi:"他", pinyin:"tā", meaning:"él / he" },
+  { hanzi:"她", pinyin:"tā", meaning:"ella / she" },
+
+  { hanzi:"哪", pinyin:"nǎ", meaning:"cuál / which" },
+  { hanzi:"哪儿", pinyin:"nǎr", meaning:"dónde / where" },
+  { hanzi:"谁", pinyin:"shéi", meaning:"quién / who" },
+  { hanzi:"什么", pinyin:"shénme", meaning:"qué / what" },
+  { hanzi:"多少", pinyin:"duōshao", meaning:"cuánto / how many" },
+  { hanzi:"几", pinyin:"jǐ", meaning:"cuántos / how many" },
+  { hanzi:"怎么", pinyin:"zěnme", meaning:"cómo / how" },
+  { hanzi:"怎么样", pinyin:"zěnmeyàng", meaning:"qué tal / how about" },
+
+  { hanzi:"一", pinyin:"yī", meaning:"uno / one" },
+  { hanzi:"二", pinyin:"èr", meaning:"dos / two" },
+  { hanzi:"三", pinyin:"sān", meaning:"tres / three" },
+  { hanzi:"四", pinyin:"sì", meaning:"cuatro / four" },
+  { hanzi:"五", pinyin:"wǔ", meaning:"cinco / five" },
+  { hanzi:"六", pinyin:"liù", meaning:"seis / six" },
+  { hanzi:"七", pinyin:"qī", meaning:"siete / seven" },
+  { hanzi:"八", pinyin:"bā", meaning:"ocho / eight" },
+  { hanzi:"九", pinyin:"jiǔ", meaning:"nueve / nine" },
+  { hanzi:"十", pinyin:"shí", meaning:"diez / ten" },
+
+  { hanzi:"个", pinyin:"gè", meaning:"clasificador general" },
+  { hanzi:"岁", pinyin:"suì", meaning:"años (edad)" },
+  { hanzi:"本", pinyin:"běn", meaning:"clasificador (libros)" },
+  { hanzi:"些", pinyin:"xiē", meaning:"algunos / some" },
+  { hanzi:"块", pinyin:"kuài", meaning:"pedazo / piece" },
+
+  { hanzi:"不", pinyin:"bù", meaning:"no (negación)" },
+  { hanzi:"没", pinyin:"méi", meaning:"no / nothing" },
+  { hanzi:"很", pinyin:"hěn", meaning:"muy / very" },
+  { hanzi:"太", pinyin:"tài", meaning:"demasiado / too" },
+  { hanzi:"都", pinyin:"dōu", meaning:"todos / all" },
+  { hanzi:"一点儿", pinyin:"yīdiǎnr", meaning:"un poco / a little" },
+
+  { hanzi:"和", pinyin:"hé", meaning:"y / and" },
+  { hanzi:"在", pinyin:"zài", meaning:"en / at" },
+  { hanzi:"的", pinyin:"de", meaning:"partícula posesiva" },
+  { hanzi:"了", pinyin:"le", meaning:"partícula de aspecto" },
+  { hanzi:"吗", pinyin:"ma", meaning:"partícula interrogativa" },
+  { hanzi:"呢", pinyin:"ne", meaning:"partícula (preguntas)" },
+  { hanzi:"喂", pinyin:"wèi", meaning:"hola (teléfono)" },
+
+  { hanzi:"家", pinyin:"jiā", meaning:"casa / home" },
+  { hanzi:"学校", pinyin:"xuéxiào", meaning:"escuela / school" },
+  { hanzi:"饭店", pinyin:"fàndiàn", meaning:"restaurante / restaurant" },
+  { hanzi:"商店", pinyin:"shāngdiàn", meaning:"tienda / store" },
+  { hanzi:"医院", pinyin:"yīyuàn", meaning:"hospital" },
+  { hanzi:"中国", pinyin:"Zhōngguó", meaning:"China" },
+  { hanzi:"北京", pinyin:"Běijīng", meaning:"Beijing" },
+
+  { hanzi:"上", pinyin:"shàng", meaning:"arriba / up" },
+  { hanzi:"下", pinyin:"xià", meaning:"abajo / down" },
+  { hanzi:"前面", pinyin:"qiánmiàn", meaning:"delante / front" },
+  { hanzi:"后面", pinyin:"hòumiàn", meaning:"detrás / behind" },
+  { hanzi:"里面", pinyin:"lǐmiàn", meaning:"dentro / inside" },
+
+  { hanzi:"今天", pinyin:"jīntiān", meaning:"hoy / today" },
+  { hanzi:"明天", pinyin:"míngtiān", meaning:"mañana / tomorrow" },
+  { hanzi:"昨天", pinyin:"zuótiān", meaning:"ayer / yesterday" },
+  { hanzi:"上午", pinyin:"shàngwǔ", meaning:"mañana (parte) / morning" },
+  { hanzi:"中午", pinyin:"zhōngwǔ", meaning:"mediodía / noon" },
+  { hanzi:"下午", pinyin:"xiàwǔ", meaning:"tarde / afternoon" },
+
+  { hanzi:"年", pinyin:"nián", meaning:"año / year" },
+  { hanzi:"月", pinyin:"yuè", meaning:"mes / month" },
+  { hanzi:"号", pinyin:"hào", meaning:"número / date" },
+  { hanzi:"星期", pinyin:"xīngqī", meaning:"semana / week" },
+  { hanzi:"点", pinyin:"diǎn", meaning:"hora / o’clock" },
+  { hanzi:"分钟", pinyin:"fēnzhōng", meaning:"minuto / minute" },
+
+  { hanzi:"现在", pinyin:"xiànzài", meaning:"ahora / now" },
+  { hanzi:"时候", pinyin:"shíhou", meaning:"tiempo / time" },
+
+  { hanzi:"爸爸", pinyin:"bàba", meaning:"papá / father" },
+  { hanzi:"妈妈", pinyin:"māma", meaning:"mamá / mother" },
+  { hanzi:"儿子", pinyin:"érzi", meaning:"hijo / son" },
+  { hanzi:"女儿", pinyin:"nǚ’ér", meaning:"hija / daughter" },
+
+  { hanzi:"老师", pinyin:"lǎoshī", meaning:"profesor/a / teacher" },
+  { hanzi:"学生", pinyin:"xuéshēng", meaning:"estudiante / student" },
+  { hanzi:"同学", pinyin:"tóngxué", meaning:"compañero/a / classmate" },
+  { hanzi:"朋友", pinyin:"péngyǒu", meaning:"amigo/a / friend" },
+
+  { hanzi:"医生", pinyin:"yīshēng", meaning:"médico / doctor" },
+  { hanzi:"先生", pinyin:"xiānsheng", meaning:"señor / Mr." },
+  { hanzi:"小姐", pinyin:"xiǎojiě", meaning:"señorita / Miss" },
+
+  { hanzi:"衣服", pinyin:"yīfu", meaning:"ropa / clothes" },
+  { hanzi:"水", pinyin:"shuǐ", meaning:"agua / water" },
+  { hanzi:"菜", pinyin:"cài", meaning:"plato / dish" },
+  { hanzi:"米饭", pinyin:"mǐfàn", meaning:"arroz / rice" },
+  { hanzi:"水果", pinyin:"shuǐguǒ", meaning:"fruta / fruit" },
+  { hanzi:"苹果", pinyin:"píngguǒ", meaning:"manzana / apple" },
+  { hanzi:"茶", pinyin:"chá", meaning:"té / tea" },
+  { hanzi:"杯子", pinyin:"bēizi", meaning:"taza / cup" },
+  { hanzi:"钱", pinyin:"qián", meaning:"dinero / money" },
+
+  { hanzi:"飞机", pinyin:"fēijī", meaning:"avión / airplane" },
+  { hanzi:"出租车", pinyin:"chūzūchē", meaning:"taxi / cab" },
+  { hanzi:"电视", pinyin:"diànshì", meaning:"televisión / TV" },
+  { hanzi:"电脑", pinyin:"diànnǎo", meaning:"computadora / computer" },
+  { hanzi:"电影", pinyin:"diànyǐng", meaning:"película / movie" },
+
+  { hanzi:"猫", pinyin:"māo", meaning:"gato / cat" },
+  { hanzi:"狗", pinyin:"gǒu", meaning:"perro / dog" },
+  { hanzi:"东西", pinyin:"dōngxi", meaning:"cosa / thing" },
+  { hanzi:"人", pinyin:"rén", meaning:"persona / person" },
+
+  { hanzi:"名字", pinyin:"míngzi", meaning:"nombre / name" },
+  { hanzi:"书", pinyin:"shū", meaning:"libro / book" },
+  { hanzi:"汉语", pinyin:"hànyǔ", meaning:"chino mandarín / Mandarin Chinese" },
+  { hanzi:"字", pinyin:"zì", meaning:"carácter / character" }
+];
+
 ];
 
     // =========================
@@ -751,6 +871,7 @@
   </script>
 </body>
 </html>
+
 
 
 
